@@ -134,6 +134,10 @@ export function useMermaidRenderer(): UseMermaidRendererReturn {
         console.info(`Mermaid: Auto-fixed ${issues.join(', ')} in diagram`);
       }
     } catch (err) {
+      // Push the exact error from Mermaid library
+      const mermaidError = err instanceof Error ? err.message : String(err);
+      issues.push(mermaidError);
+
       // Update state atomically
       setSvg('');
 
@@ -147,7 +151,7 @@ export function useMermaidRenderer(): UseMermaidRendererReturn {
       }
 
       setError(errorMessage);
-      console.error('Mermaid rendering error:', err);
+      // console.error('Mermaid rendering error:', err);
     }
   }, []); // Empty dependency array for stable reference
 

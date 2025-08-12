@@ -4,7 +4,13 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import * as monaco from 'monaco-editor';
 import { Editor } from '@monaco-editor/react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Download, MoreHorizontal, Save, FolderOpen } from 'lucide-react';
+import {
+  Download,
+  MoreHorizontal,
+  Save,
+  FolderOpen,
+  XCircle,
+} from 'lucide-react';
 
 // Components
 import { Button } from '@/components/ui/button';
@@ -483,11 +489,22 @@ export default function MermaidEditor() {
 
           {error ? (
             <div className="flex h-full items-center justify-center p-8">
-              <div className="text-center">
-                <div className="mb-2 text-lg font-medium text-red-500">
-                  Syntax Error
+              <div className="w-full max-w-2xl">
+                <div className="rounded-lg border border-red-200 bg-red-50/80 shadow-lg backdrop-blur-sm">
+                  <div className="border-b border-red-200 bg-red-100/50 px-4 py-3">
+                    <div className="flex items-center gap-2">
+                      <XCircle className="ml-[-2px] h-4 w-4 text-red-700" />
+                      <h3 className="text-md mt-[2px] font-semibold text-red-800">
+                        Mermaid Syntax Error
+                      </h3>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <pre className="rounded-md border border-red-200 bg-red-900/10 p-4 font-mono text-xs leading-relaxed break-words whitespace-pre-wrap text-red-800">
+                      {error}
+                    </pre>
+                  </div>
                 </div>
-                <div className="text-gray-600">{error}</div>
               </div>
             </div>
           ) : svg ? (
