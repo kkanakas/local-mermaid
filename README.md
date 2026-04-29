@@ -16,3 +16,32 @@ Edit, preview, and export `Mermaid.js` diagrams locally ⚡
 1. `bun install` to install all necessary dependencies.
 
 2. `bun run dev` to start the development server.
+
+## Docker Setup
+
+Alternatively, you can run the application using Docker:
+
+1. **Build the Docker image:**
+
+   ```bash
+   docker build -t local-mermaid .
+   ```
+
+2. **Run with Docker Compose (recommended):**
+
+   ```bash
+   docker compose up -d
+   ```
+
+3. **Or run directly with Docker:**
+   ```bash
+   docker run -p 3000:80 local-mermaid
+   ```
+
+The application will be available at `http://localhost:3000`.
+
+To stop the container:
+
+```bash
+docker compose down
+```
