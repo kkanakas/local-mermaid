@@ -1,32 +1,15 @@
-# Use Bun as the base image for building
+# Builder stage
 FROM oven/bun:latest AS builder
-
-# Set working directory
 WORKDIR /app
-
-# Copy package files
+ENV NODE_ENV=production
 COPY package.json bun.lockb ./
-
-# Install dependencies
 RUN bun install --frozen-lockfile
-
-# Copy source code
 COPY . .
-
-# Build the application
 RUN bun run build
 
-# Production stage with nginx
+# Runtime stage
 FROM nginx:alpine
-
-# Copy built static files to nginx
 COPY --from=builder /app/out /usr/share/nginx/html
-
-# Copy nginx configuration if needed (optional)
-# COPY nginx.conf /etc/nginx/nginx.conf
-
-# Expose port 80
+COPY nginx.conf /etc/nginx/nginx.conf
 EXPOSE 80
-
-# Start nginx
 CMD ["nginx", "-g", "daemon off;"]
